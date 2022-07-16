@@ -32,12 +32,13 @@ module ActiveRecordQueryStats
       when /\A\s*update/i then increase_update
       when /\A\s*delete/i then increase_delete
       when /transaction\s*\Z/i then increase_transaction
+      when /\A\s*(release )?savepoint/i then increase_savepoint
       else increase_other
       end
     end
 
     def summary
-      RequestStore[:active_record_query_stats] ||= Summary.new
+      Summary.call
     end
 
     def skipping?

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'i18n'
+require 'request_store'
 require 'active_support'
 require 'active_record/log_subscriber'
 require 'action_controller'

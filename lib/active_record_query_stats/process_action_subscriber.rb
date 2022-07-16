@@ -13,7 +13,7 @@ module ActiveRecordQueryStats
     end
 
     def summary
-      RequestStore[:active_record_query_stats] ||= Summary.new
+      Summary.call
     end
   end
 end

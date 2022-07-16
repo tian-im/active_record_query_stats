@@ -5,7 +5,7 @@ module ActiveRecordQueryStats
     STATS = %i[
       total real cached
       select insert update delete
-      transaction lock rollback other
+      transaction savepoint lock rollback other
     ].freeze
 
     def self.call
