@@ -1,0 +1,8 @@
+en:
+  active_record_query_stats:
+    stats_template: |
+      Query Stats
+      -----------
+      total: %{total}, real: %{real}, cached: %{cached}
+      select: %{select}, insert: %{insert}, update: %{update}, delete: %{delete}
+      transaction: %{transaction}, lock: %{lock}, rollback: %{rollback}, other: %{other}

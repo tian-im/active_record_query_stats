@@ -2,10 +2,12 @@
 
 source 'https://rubygems.org'
 
-ruby '3.1.2'
-
 gemspec
 
+gem 'rails'
+gem 'sqlite3'
+
 gem 'byebug'
-gem 'deep-cover'
-gem 'simplecov', '~> 0.17.0'
+gem 'factory_bot_rails'
+gem 'rubocop'
+gem 'simplecov'

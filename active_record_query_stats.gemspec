@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['me@tian.im']
   spec.license       = 'MIT'
 
-  spec.summary       = "Query Stats logging for ActiveRecord"
+  spec.summary       = 'Query Stats logging for ActiveRecord'
   spec.description   = spec.summary
   spec.homepage      = 'https://github.com/tian-im/active_record_query_stats'
 
@@ -27,7 +27,12 @@ Gem::Specification.new do |spec|
     'README.md'
   ]
 
-  spec.add_dependency 'activerecord', '>= 4.2.0'
-  spec.add_dependency 'activesupport', '>= 4.2.0'
+  # @see https://www.fastruby.io/blog/ruby/rails/versions/compatibility-table.html
+  spec.required_ruby_version = '>= 2.5.0'
+
+  spec.add_dependency 'actionpack', '>= 6.0.0'
+  spec.add_dependency 'activerecord', '>= 6.0.0'
+  spec.add_dependency 'activesupport', '>= 6.0.0'
   spec.add_dependency 'i18n'
+  spec.add_dependency 'request_store'
 end
