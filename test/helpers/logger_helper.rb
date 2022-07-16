@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module LoggerHelper
   def watch_logger(&block)
     origin = ActionController::Base.logger

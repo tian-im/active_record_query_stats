@@ -5,29 +5,68 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9ba0a610043a2e1a9e74/maintainability)](https://codeclimate.com/github/tian-im/active_record_query_stats/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9ba0a610043a2e1a9e74/test_coverage)](https://codeclimate.com/github/tian-im/active_record_query_stats/test_coverage)
 
-ActiveRecordQueryStats is a simple ActiveRecord query stats logging based on [Active Support Instrumentation](https://guides.rubyonrails.org/active_support_instrumentation.html). It produces the stats in following format:
+ActiveRecordQueryStats produces simple ActiveRecord query stats at the end of each request in the following format:
 
 ```shell
+Query Stats
+-----------
+total: 6, real: 5, cached: 1
+select: 4, insert: 0, update: 1, delete: 0
+transaction: 0, savepoint: 0, lock: 0, rollback: 0, other: 0
 ```
 
-It subscribes to the following events:
-
-- `sql.active_record`: collect and analyze the query executed by ActiveRecord from this event.
-- `process_action.action_controller`: display the stats when a request is finished.
+- **total:** total queries occurred during the request.
+- **real:** queries having run against the database.
+- **cached:** queries that Rails encounters again and returns the cached result instead of hitting the database (see [SQL Caching](https://guides.rubyonrails.org/caching_with_rails.html#sql-caching)).
+- **select:** SELECT queries.
+- **insert:** INSERT queries.
+- **update:** UPDATE queries.
+- **delete:** DELETE queries.
+- **transaction:** TRANSACTION related queries.
+- **savepoint:** SAVEPOINT related queries.
+- **lock:** LOCK related queries.
+- **rollback:** ROLLBACK related queries.
+- **other:** the rest queries go here.
 
 ## Install
 
-Add `ActiveRecordQueryStats` to `Gemfile`.
+Add the following line to file `Gemfile`.
 
 ```ruby
-gem 'active_record_query_stats'
+gem 'active_record_query_stats', group: :development
 ```
 
-And re-bundle.
+And run re-bundle in terminal.
 
 ```shell
 bundle install
 ```
+
+That's it. Start the Rails server and see the stats!
+
+## Configuration
+
+The query stats template can be customized by overwriting the translation for `active_record_query_stats.stats_template`, e.g.:
+
+```yml
+# config/locales/en.yml
+en:
+  # ...
+  active_record_query_stats:
+    stats_template: |
+      Query Stats
+      -----------
+      total: %{total}, real: %{real}, cached: %{cached}
+      select: %{select}, insert: %{insert}, update: %{update}, delete: %{delete}
+      transaction: %{transaction}, savepoint: %{savepoint}, lock: %{lock}, rollback: %{rollback}, other: %{other}
+```
+
+## Implementation
+
+ActiveRecordQueryStats is based on the [Active Support Instrumentation](https://guides.rubyonrails.org/active_support_instrumentation.html) to implement the features by subscribing the following Rails events:
+
+- `sql.active_record`: collect and analyze the query executed by ActiveRecord from this event.
+- `process_action.action_controller`: display the stats when a request is finished.
 
 ## Documentation
 

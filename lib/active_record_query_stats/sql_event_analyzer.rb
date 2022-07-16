@@ -15,7 +15,7 @@ module ActiveRecordQueryStats
       return increase_cached if cached_query?
 
       increase_real
-      others
+      increase_transaction_related || increase_statements || increase_other
     end
 
     private
@@ -23,17 +23,21 @@ module ActiveRecordQueryStats
     delegate :payload, to: :@event
     delegate(*Summary.instance_methods(false), to: :summary)
 
-    def others
+    def increase_transaction_related
       case payload[:sql]
       when /\A\s*rollback/mi then increase_rollback
       when /select .*for update/mi, /\A\s*lock/mi then increase_lock
+      when /transaction\s*\Z/i then increase_transaction
+      when /\A\s*(release )?savepoint/i then increase_savepoint
+      end
+    end
+
+    def increase_statements
+      case payload[:sql]
       when /\A\s*select/i then increase_select
       when /\A\s*insert/i then increase_insert
       when /\A\s*update/i then increase_update
       when /\A\s*delete/i then increase_delete
-      when /transaction\s*\Z/i then increase_transaction
-      when /\A\s*(release )?savepoint/i then increase_savepoint
-      else increase_other
       end
     end
 

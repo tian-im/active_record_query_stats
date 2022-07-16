@@ -18,7 +18,8 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     'homepage_uri' => spec.homepage,
     'source_code_uri' => spec.homepage,
-    'changelog_uri' => "#{spec.homepage}/blob/master/CHANGELOG.md"
+    'changelog_uri' => "#{spec.homepage}/blob/master/CHANGELOG.md",
+    'rubygems_mfa_required' => 'true'
   }
 
   spec.files = Dir[
@@ -30,9 +31,9 @@ Gem::Specification.new do |spec|
   # @see https://www.fastruby.io/blog/ruby/rails/versions/compatibility-table.html
   spec.required_ruby_version = '>= 2.5.0'
 
-  spec.add_dependency 'actionpack', '>= 6.0.0'
-  spec.add_dependency 'activerecord', '>= 6.0.0'
-  spec.add_dependency 'activesupport', '>= 6.0.0'
+  spec.add_dependency 'actionpack', '>= 5.2.0'
+  spec.add_dependency 'activerecord', '>= 5.2.0'
+  spec.add_dependency 'activesupport', '>= 5.2.0'
   spec.add_dependency 'i18n'
   spec.add_dependency 'request_store'
 end
