@@ -1,0 +1,27 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - test/dummy/**/*
+    # avoid Error: RuboCop found unsupported Ruby version 2.1 in `TargetRubyVersion` parameter
+    # (in vendor/bundle/ruby/3.0.0/gems/rainbow-3.0.0/.rubocop.yml) and also the extra weird
+    # "Unable to find gem panolint; is the gem installed? Gem::MissingSpecError" in all ruby versions
+    - vendor/bundle/**/*
+
+# It's disabled because the gem is required to be tested with different ruby versions.
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Layout/LineLength:
+  Exclude:
+    - test/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - test/**/*
+
+Metrics/MethodLength:
+  Exclude:
+    - test/**/*
+
+Style/Documentation:
+  Enabled: false
