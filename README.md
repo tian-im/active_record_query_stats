@@ -2,8 +2,8 @@
 
 [![Gem Version](https://badge.fury.io/rb/active_record_query_stats.svg)](https://badge.fury.io/rb/active_record_query_stats)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9ba0a610043a2e1a9e74/maintainability)](https://codeclimate.com/github/tian-im/active_record_query_stats/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/9ba0a610043a2e1a9e74/test_coverage)](https://codeclimate.com/github/tian-im/active_record_query_stats/test_coverage)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9bcbeb90bc7f141fc211/maintainability)](https://codeclimate.com/github/tian-im/active_record_query_stats/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/9bcbeb90bc7f141fc211/test_coverage)](https://codeclimate.com/github/tian-im/active_record_query_stats/test_coverage)
 
 ActiveRecordQueryStats produces simple ActiveRecord query stats at the end of each request in the following format:
 
