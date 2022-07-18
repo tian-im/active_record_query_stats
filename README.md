@@ -12,7 +12,7 @@ Query Stats
 -----------
 total: 6, real: 5, cached: 1
 select: 4, insert: 0, update: 1, delete: 0
-transaction: 0, savepoint: 0, lock: 0, rollback: 0, other: 0
+transaction: 0, savepoint: 0, rollback: 0, lock: 0, other: 0
 ```
 
 - **total:** total queries occurred during the request.
@@ -58,7 +58,7 @@ en:
       -----------
       total: %{total}, real: %{real}, cached: %{cached}
       select: %{select}, insert: %{insert}, update: %{update}, delete: %{delete}
-      transaction: %{transaction}, savepoint: %{savepoint}, lock: %{lock}, rollback: %{rollback}, other: %{other}
+      transaction: %{transaction}, savepoint: %{savepoint}, rollback: %{rollback}, lock: %{lock}, other: %{other}
 ```
 
 ## Implementation

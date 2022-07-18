@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   root to: ->(env) { [204, {}, ['welcome']] }
   resources :users do
-    get :lock, on: :collection
-    get :other, on: :collection
+    collection do
+      get :set_transaction
+      get :rollback
+      get :lock
+      get :other
+    end
   end
 end

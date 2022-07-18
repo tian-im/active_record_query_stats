@@ -24,20 +24,19 @@ module ActiveRecordQueryStats
     delegate(*Summary.instance_methods(false), to: :summary)
 
     def increase_transaction_related
-      case payload[:sql]
-      when /\A\s*rollback/mi then increase_rollback
-      when /select .*for update/mi, /\A\s*lock/mi then increase_lock
-      when /transaction\s*\Z/i then increase_transaction
-      when /\A\s*(release )?savepoint/i then increase_savepoint
+      if rollback_query? then increase_rollback && increase_transaction
+      elsif savepoint_query? then increase_savepoint && increase_transaction
+      elsif transaction_query? then increase_transaction
       end
     end
 
     def increase_statements
       case payload[:sql]
-      when /\A\s*select/i then increase_select
-      when /\A\s*insert/i then increase_insert
-      when /\A\s*update/i then increase_update
-      when /\A\s*delete/i then increase_delete
+      when /\s*SELECT .*FOR UPDATE\b/mi, /\A\s*LOCK\b/mi then increase_lock
+      when /\A\s*SELECT/i then increase_select
+      when /\A\s*INSERT/i then increase_insert
+      when /\A\s*UPDATE/i then increase_update
+      when /\A\s*DELETE/i then increase_delete
       end
     end
 
@@ -63,6 +62,18 @@ module ActiveRecordQueryStats
 
     def cached_query?
       /CACHE/i =~ payload[:name] || payload[:cached]
+    end
+
+    def rollback_query?
+      /\A\s*ROLLBACK/mi =~ payload[:sql]
+    end
+
+    def savepoint_query?
+      /\A\s*(RELEASE )?SAVEPOINT/mi =~ payload[:sql]
+    end
+
+    def transaction_query?
+      /TRANSACTION\s*\Z/i =~ payload[:sql] || /TRANSACTION/i =~ payload[:name]
     end
   end
 end
