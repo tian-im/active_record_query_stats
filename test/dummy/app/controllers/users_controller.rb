@@ -45,12 +45,27 @@ class UsersController < ApplicationController
     redirect_to users_url, notice: "User was successfully destroyed."
   end
 
+  def set_transaction
+    # this will fail in sqlite3
+    User.connection.execute <<~SQL
+      SET TRANSACTION ISOLATION LEVEL read;
+    SQL
+  rescue StandardError
+    head :no_content
+  end
+
   def lock
+    # this will fail in sqlite3
+    User.connection.execute <<~SQL
+      LOCK TABLE company1 IN ACCESS EXCLUSIVE MODE;
+    SQL
+  rescue StandardError
+    head :no_content
+  end
+
+  def rollback
     User.transaction do
-      # this will fail in sqlite3
-      User.connection.execute <<~SQL
-        LOCK TABLE company1 IN ACCESS EXCLUSIVE MODE;
-      SQL
+      User.create!
     end
   rescue StandardError
     head :no_content

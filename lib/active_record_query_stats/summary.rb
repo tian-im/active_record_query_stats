@@ -12,9 +12,15 @@ module ActiveRecordQueryStats
       RequestStore[:active_record_query_stats] ||= new
     end
 
+    def initialize
+      STATS.each do |field|
+        instance_variable_set :"@#{field}", 0
+      end
+    end
+
     STATS.each do |field|
       define_method field do
-        instance_variable_get(:"@#{field}") || 0
+        instance_variable_get(:"@#{field}")
       end
 
       define_method :"increase_#{field}" do
